@@ -145,7 +145,7 @@
                                         </div>
                                     </a>
 
-                                    <li class="list-group-item cursor-pointer" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <li class="list-group-item cursor-pointer" onclick="openModal({{ $post?->id }})" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                         <div class="d-flex gap-3">
                                             <div class="call-button">
                                                 <i class="fe fe-message-circle"></i>
@@ -172,11 +172,14 @@
                                 <a class="ms-3" href="#">See all safety tips</a>
                             </div>
                         </div>
-                        <div class="card mt-3">
-                            <div class="card-body map-card">
-                                {!! $post?->map !!}
+                        @if($post?->map)
+                            <div class="card mt-3">
+                                <div class="card-body map-card">
+                                    {!! $post?->map !!}
+                                </div>
                             </div>
-                        </div>
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -217,8 +220,7 @@
                 <div class="modal-body">
                     <form action="{{ route('user.sendMessage') }}" method="post">
                         @csrf
-                        <input type="hidden" name="to_id" value="{{ $post?->user?->id }}">
-                        <input type="hidden" name="postId" value="{{ $post?->id }}">
+                        <input type="hidden" id="setPostId" name="postId" value="{{ $post }}">
                         <div>
                             <label for="message">Your Message</label>
                             <textarea name="body" id="message" rows="5" placeholder="Message..." class="form-control"></textarea>
@@ -232,3 +234,12 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        function openModal(id){
+            $("#setPostId").val(id)
+        }
+
+    </script>
+@endpush

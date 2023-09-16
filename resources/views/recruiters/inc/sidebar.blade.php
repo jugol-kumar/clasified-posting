@@ -39,7 +39,7 @@
                 </li>
                 <!-- Nav item -->
                 <li class="nav-item {{ Route::is('user.editProfile') ? 'active' : '' }}">
-                    <a class="nav-link" href="#"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
+                    <a class="nav-link" href="{{ route('user.editProfile') }}"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"><i class="fe fe-power nav-icon"></i>Sign Out</a>

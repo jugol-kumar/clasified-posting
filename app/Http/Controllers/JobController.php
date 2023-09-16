@@ -136,7 +136,7 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id)->load('category');
+        $post = Post::findOrFail($id)->load(['category', 'user']);
 
         return inertia('Backend/Jobs/SinglePost', [
             'post' => $post

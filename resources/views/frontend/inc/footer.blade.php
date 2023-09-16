@@ -37,7 +37,6 @@
                     <h3 class="fw-bold mb-3 text-white">Support</h3>
                     <ul class="list-unstyled nav nav-footer flex-column nav-x-0">
                         <li><a href="#" class="nav-link text-white">Help and Support</a></li>
-                        <li><a href="{{ route('seeker.dashboard') }}" class="nav-link text-white">Become Seekers</a></li>
                         <li><a href="#" class="nav-link text-white">Get the app</a></li>
                         <li><a href="#" class="nav-link text-white">FAQ’s</a></li>
                     </ul>

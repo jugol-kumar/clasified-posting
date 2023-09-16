@@ -32,11 +32,19 @@
                     <p>{{ post.short_details }}</p>
                     <h3>Description</h3>
                     <div id="fullDetailsShow" class="showMinDetails details-p" v-html="post.full_details"/>
-<!--                    <button id="showMore" class="show-more-btn">Show More <i class="fe fe-chevron-down"></i></button>-->
                 </div>
             </div>
         </div>
         <div class="col-md-4">
+            <div class="card">
+                <div class="card-body d-flex align-items-center justify-content-center flex-column text-center">
+                    <img class="profileImage" :src="`${post?.user?.photo}`" alt="">
+                    <div>
+                        <h2 class="text-uppercase">{{ post?.user?.name }}</h2>
+                        <strong>Phone: {{ post?.user?.phone }}</strong>
+                    </div>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body d-flex flex-column">
                     <h3>Curent Post Status</h3>
@@ -175,5 +183,10 @@ let deleteItemModal = (id) => {
     margin-top: 2rem;
     display: flex;
     gap: 10px;
+}
+.profileImage{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
 }
 </style>

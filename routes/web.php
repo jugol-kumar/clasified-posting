@@ -176,60 +176,11 @@ Route::middleware('auth')->group(function () {
                 Route::post('send-chatting-message', [RecruitersController::class, 'sendMessage'])->name('sendMessage');
                 Route::post('send-chat', [RecruitersController::class, 'sendChat'])->name('sendChat');
             });
-        });
 
-        Route::prefix('seekers')->name('seeker.')->middleware('seekers')->withoutMiddleware('auth')->group(function (){
-            // otp verification and profile complete for job seeker
-            Route::withoutMiddleware('seekers')->group(function (){
-                Route::get('second-step', [SeekerController::class, 'firstStep'])->name('firstStep');
-
-                Route::get('get-sub-categories/{id}', [SeekerController::class, 'subCatById'])->name('getSubCat');
-                Route::get('get-cities-by-state-id/{id}', [SeekerController::class, 'getCities'])->name('getCities');
-                Route::get('get-upozila-by-district-id/{id}', [SeekerController::class, 'getUpozelaByDid'])->name('getupozela');
-
-                // educations
-                Route::get('get-educations-by-educations-label/{id}', [SeekerController::class, 'getEducations'])->name('getEducations');
-
-                // first stape data save
-                Route::post('data-save-first-step', [SeekerController::class, 'firstStapeSave'])->name('firstStapeSave');
-                Route::post('data-save-second-step', [SeekerController::class, 'secondStapeSave'])->name('secondStapeSave');
-                Route::post('data-save-third-step', [SeekerController::class, 'thirdStapeSave'])->name('thirdStapeSave');
-                Route::post('data-save-last-step', [SeekerController::class, 'lastFormSave'])->name('lastFormSave');
-
-                // profile review and goto dashboard
-                Route::get('profile-review', [SeekerController::class, 'profileReview'])->name('profileReview');
-                Route::post('update-seeker-profile-bio', [SeekerController::class, 'updateBio'])->name('updateBio');
-
-                // seeker inactive
-                Route::get('profile-inactive', [SeekerController::class, 'profileInactiveShow'])->name('profileInactive');
-            });
-
-            Route::get('dashboard', [SeekerController::class, 'dashboard'])->name('dashboard');
+            Route::get('edit-profile', [RecruitersController::class, 'editProfile'])->name('editProfile');
+            Route::post('change-profile-picture', [RecruitersController::class, 'changeProfilePicture'])->name('changeProfilePicture');
 
 
-            // seeker sidebar related routes
-            Route::get('save-jobs', [SeekerJobController::class, 'allSaveJobs'])->name('allSaveJobs');
-            Route::get('upload-resume', [SeekerProfileController::class, 'uploadResume'])->name('uploadResume');
-            Route::get('greeting-chat', [SeekerProfileController::class, 'greetingChat'])->name('greetingChat');
-            Route::get('switch-to-recruiter', [SeekerProfileController::class, 'switchProfile'])->name('switchProfile');
-            Route::view('contact-us', 'frontend.contact')->name('contactUs');
-
-            // seeker profile related routes
-            Route::post('change-profile-picture', [SeekerProfileController::class, 'changeProfilePicture'])->name('changeProfilePicture');
-            Route::post('update-profile-information', [SeekerProfileController::class, 'editPersonalInfo'])->name('editPersonalInfo');
-            Route::get('edit-profile', [SeekerProfileController::class, 'editProfile'])->name('editProfile');
-
-            Route::get('show-profile', [SeekerProfileController::class,'showProfile'])->name('showProfile');
-
-            Route::get('security-page', [SeekerProfileController::class, 'security'])->name('security');
-            Route::post('update-email', [SeekerProfileController::class, 'updateEmail'])->name('changeEmail');
-            Route::post('update-security-password', [SeekerProfileController::class, 'changePassword'])->name('changePass');
-
-            Route::view('social-media-url-profile', 'seekers.profile.socal_profile')->name('socialProfile');
-            Route::post('update-social-profile', [SeekerProfileController::class, 'updateSocialLinks'])->name('updateSocialLinks');
-
-
-            Route::post('send-message', [MessangerController::class, 'send'])->name('sendMessage');
         });
     });
 });

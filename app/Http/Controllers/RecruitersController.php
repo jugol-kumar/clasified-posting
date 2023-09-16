@@ -25,6 +25,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -35,6 +36,29 @@ class RecruitersController extends Controller
         return view('recruiters.profile.build_profile');
     }
 
+    public function editProfile()
+    {
+        return view('recruiters.edit_profile');
+    }
+    public function changeProfilePicture(Request $request){
+        $user = Auth::user();
+
+        if ($request->hasFile('profile_pic')){
+            $exists = Storage::disk('public')->exists("storage/user/aNbgYc8ISJbs0uWPeEQSAhuAmogKtRhrwchUFnBi.png");
+            if ($exists){
+                Storage::disk('public')->delete($this->user->photo);
+            }
+            $file = $request->file('profile_pic')->store('user', 'public');
+            $user->photo = $file;
+            $user->update();
+            toast('Profile Picture Updated Successfully Done.....', 'success');
+            return back();
+        }
+
+        toast('Select Your Profile Picture', 'warning');
+        return back();
+
+    }
     public function updateBio(Request $request){
 
         $user = Auth::user();
@@ -298,9 +322,12 @@ class RecruitersController extends Controller
     public function singlePostSingleMessage($id){
         $mDetails = MessageDetail::with(['post', 'messages', 'messages.sender', 'user'])->findOrFail($id);
         $messages = MessageDetail::with('post')->where('to_id', Auth::id())->orWhere('from_id', Auth::id())->latest()->get();
-        $chatings = Message::query()->where('message_details_id', '==', $id)->where('from_id', Auth::id())->where('to_id', $mDetails->to_id)->orWhere('from_id', $mDetails->to_id)->orWhere('to_id', Auth::id())->get();
-
-
+        $chatings = Message::query()->where('message_details_id', '==', $id)
+                                    ->where('from_id', Auth::id())
+                                    ->where('to_id', $mDetails->to_id)
+                                    ->orWhere('from_id', $mDetails->to_id)
+                                    ->orWhere('to_id', Auth::id())
+                                    ->get();
         return view('recruiters.chatting.index', compact('messages', 'chatings', 'mDetails'));
     }
 
@@ -320,25 +347,24 @@ class RecruitersController extends Controller
 
     public function sendMessage(Request $request){
         $post = Post::findOrFail($request->input("postId"));
-
         $messageDetails = MessageDetail::where('post_id', $post->id)->first();
 
-        if ($messageDetails == null){
+        if($messageDetails == null){
             $messageDetails = MessageDetail::create([
                 'post_id' => $post->id,
                 'from_id' => Auth::id(),
-                'to_id' => $post->user->id,
+                'to_id' => $post->user_id,
             ]);
         }
 
         Message::create([
-           'message_details_id' =>$messageDetails->id,
-           'from_id' => Auth::id(),
-            'to_id' => $post->user->id,
-            'body' => $request->input('message')
+            'message_details_id' =>$messageDetails->id,
+            'from_id' => Auth::id(),
+            'to_id' => $post->user_id,
+            'body' => $request->input('body')
         ]);
 
-        toast('Message Sent...', 'success');
+        toast('Message Sended...', 'success');
         return back();
     }
 
