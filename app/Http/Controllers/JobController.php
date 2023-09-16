@@ -137,7 +137,7 @@ class JobController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id)->load(['category', 'user']);
-
+        $post->created_at = $post->created_at->diffForHumans();
         return inertia('Backend/Jobs/SinglePost', [
             'post' => $post
         ]);
