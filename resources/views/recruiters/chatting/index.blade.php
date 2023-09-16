@@ -1,12 +1,6 @@
 @extends('frontend.layout.master')
 @push('css')
     <style>
-        .chat-online {
-            color: #34ce57
-        }
-        .chat-offline {
-            color: #e4606d
-        }
         .chat-messages {
             display: flex;
             flex-direction: column;
