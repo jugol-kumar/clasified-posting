@@ -134,10 +134,12 @@ class JobController extends Controller
      * @param  \App\Models\Job  $job
      * @return \Inertia\Response|\Inertia\ResponseFactory
      */
-    public function show(Post $post)
+    public function show($id)
     {
+        $post = Post::findOrFail($id)->load('category');
+
         return inertia('Backend/Jobs/SinglePost', [
-            'post' => $post->load('category')
+            'post' => $post
         ]);
     }
 

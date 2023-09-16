@@ -9,6 +9,7 @@ use App\Models\Division;
 use App\Models\Job;
 use App\Models\Post;
 use App\Models\SubCategory;
+use App\Models\Upazila;
 use App\Properties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,10 +25,11 @@ class HomeController extends Controller
 
     public function singleJob($id){
         $post = Post::with(['category', 'sub_category', 'child_category', 'division', 'district', 'upazila'])->findOrFail($id);
+//        $categoryPosts = Post::where('category_id', $post->category_id)->where('status', 'Approved')->get()->chunk(4);
 
-        $categoryPosts = Post::where('category_id', $post->category_id)->where('status', 'Approved')->get()->chunk(4);
+        $categoryPosts = $post->category->posts->where('status', 'Approved')->chunk(4);
 
-        return view('frontend.single_job', compact('post', 'categoryPosts'));
+        return view('frontend.single_post', compact('post', 'categoryPosts'));
     }
 
     public function allDistrict(Request $request){
@@ -41,6 +43,13 @@ class HomeController extends Controller
         echo $output;
     }
 
+    public function getDistricts($id){
+        return District::where('division_id', $id)->get();
+    }
+    public function getThana($id){
+        return Upazila::where('district_id', $id)->get();
+    }
+
     public function getSubCategories($id){
         $categories = SubCategory::where('category_id', $id)->withCount('jobs')->get();
         return $categories;
@@ -52,8 +61,8 @@ class HomeController extends Controller
         $cat  = \request()->input('cat_id');
         $div  = \request()->input('div_id');
 
-        $categories    = Category::withCount('jobs')->get();
-        $divisions     = Division::withCount('jobs')->get();
+        $categories    = Category::get();
+        $divisions     = Division::get();
         if ($cat != null){
             $subCategories = SubCategory::where('category_id', $cat)->withCount('jobs')->get();
         }else{

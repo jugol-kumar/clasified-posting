@@ -55,6 +55,9 @@ Route::controller(HomeController::class)->name('client.')->group(function (){
     Route::post('all-district', 'allDistrict')->name('allDistrict');
     Route::get('sub-categories/category-id/{id}', 'getSubCategories')->name('getSubCategories');
     Route::get('search', 'searchJob')->name('searchJObs');
+
+    Route::get('get-districts-by-division-id/{id}', 'getDistricts')->name('getCities');
+    Route::get('get-thana-by-district-id/{id}', 'getThana')->name('getThana');
 });
 
 Route::controller(RecruitersController::class)->prefix('recruiters')->name('recruiter.')->group(function (){
@@ -119,6 +122,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/sub-category/update/{id}', [SubCategoryController::class, 'update'])->name('update');
 
             Route::resource('posts', JobController::class);
+            Route::get('single-post/{id}', [JobController::class, 'show']);
             Route::post('change-post-status', [JobController::class, 'updateStatus'])->name('changeStatus');
             Route::post('child-categories-by-category-id', [JobController::class, 'allSubcategory'])->name('allSubCategory');
 

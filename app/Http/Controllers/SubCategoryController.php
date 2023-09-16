@@ -73,6 +73,8 @@ class SubCategoryController extends Controller
     {
         $data = Request::all();
 
+        $data['name'] = Request::input('title');
+
         if (Request::hasFile('icon')){
             $icon = Request::file('icon')->store('uploads/all', 'public');
 //            fileResize(Request::file('icon'), $icon, 60, 60);

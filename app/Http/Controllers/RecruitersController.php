@@ -143,9 +143,6 @@ class RecruitersController extends Controller
         [
             'states'     => Division::all(),
             'categories' => Category::select('id', 'name')->get(),
-            'countries'  => Country::select('currency', 'currency_name', 'currency_symbol', 'name', 'id')->get(),
-            'companies'  => Company::where('user_id', Auth::id())->with('photos')->get(),
-
         ]));
     }
 
@@ -317,20 +314,22 @@ class RecruitersController extends Controller
             'body' => $request->input('body')
         ]);
         return back();
-
     }
 
 
 
     public function sendMessage(Request $request){
-
         $post = Post::findOrFail($request->input("postId"));
 
-        $messageDetails = MessageDetail::create([
-           'post_id' => $post->id,
-            'from_id' => Auth::id(),
-            'to_id' => $post->user->id,
-        ]);
+        $messageDetails = MessageDetail::where('post_id', $post->id)->first();
+
+        if ($messageDetails == null){
+            $messageDetails = MessageDetail::create([
+                'post_id' => $post->id,
+                'from_id' => Auth::id(),
+                'to_id' => $post->user->id,
+            ]);
+        }
 
         Message::create([
            'message_details_id' =>$messageDetails->id,
@@ -339,6 +338,7 @@ class RecruitersController extends Controller
             'body' => $request->input('message')
         ]);
 
+        toast('Message Sent...', 'success');
         return back();
     }
 

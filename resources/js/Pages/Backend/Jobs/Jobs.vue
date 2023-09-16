@@ -99,7 +99,7 @@
                             </button>
                             <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
                                 <li>
-                                    <a class="dropdown-item" :href="`/single-post/${post.post.id }`" target="_blank">Show</a>
+                                    <a class="dropdown-item" :href="`/panel/admin/single-post/${post.post.id }`" target="_blank">Show</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="javascript:void(0)" @click="deleteItem(post.post.id)">Delete</a>

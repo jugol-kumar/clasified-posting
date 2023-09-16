@@ -111,8 +111,4 @@ class Category extends Model
         return $this->hasMany('App\Models\Question');
     }
 
-    public function jobs(){
-        return $this->hasMany(Job::class, 'category_id');
-    }
-
 }

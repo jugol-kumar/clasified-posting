@@ -313,14 +313,14 @@
             let city = $("#city_id");
             if (stateId) {
                 $.ajax({
-                    url: `<?php echo e(route('seeker.getCities', '')); ?>/${stateId}`,
+                    url: `<?php echo e(route('client.getCities', '')); ?>/${stateId}`,
                     method: 'GET',
                     dataType: 'JSON',
                     success:function(res){
                         city.empty();
                         $("#city-card").show();
                         city.append('<option selected disabled value="">'+'Select Districts'+'</option>');
-                        $.each(res.districts, function (key, value) {
+                        $.each(res, function (key, value) {
                             city.append('<option value="'+value.id+'" >'+value.name+'</option>');
                         })
                         city.selectpicker('refresh');
@@ -334,14 +334,14 @@
             let city = $("#thana_id");
             if (stateId) {
                 $.ajax({
-                    url: `<?php echo e(route('seeker.getupozela', '')); ?>/${stateId}`,
+                    url: `<?php echo e(route('client.getThana', '')); ?>/${stateId}`,
                     method: 'GET',
                     dataType: 'JSON',
                     success:function(res){
                         city.empty();
                         $("#thana_card").show();
                         city.append('<option selected disabled value="">'+'Select Thana'+'</option>');
-                        $.each(res.upozilas, function (key, value) {
+                        $.each(res, function (key, value) {
                             city.append('<option value="'+value.id+'" >'+value.name+'</option>');
                         })
                         city.selectpicker('refresh');

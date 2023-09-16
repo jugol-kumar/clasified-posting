@@ -20,10 +20,10 @@
             <span class="navbar-header">Operations</span>--}}
             <ul class="list-unstyled ms-n2 mb-4">
                 <!-- Nav item -->
-<!--                <li class="nav-item {{ Route::is("user.allCompanies") ? 'active' : '' }}">
+{{--                <li class="nav-item {{ Route::is("user.allCompanies") ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route("user.allCompanies") }}"><i class="fe fe-cloud nav-icon"></i>My
                         Companies</a>
-                </li>-->
+                </li>--}}
             </ul>
             <!-- Navbar header -->
             <span class="navbar-header">Account Settings</span>
@@ -39,7 +39,7 @@
                 </li>
                 <!-- Nav item -->
                 <li class="nav-item {{ Route::is('user.editProfile') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('user.editProfile') }}"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
+                    <a class="nav-link" href="#"><i class="fe fe-settings nav-icon"></i>Edit Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"><i class="fe fe-power nav-icon"></i>Sign Out</a>
