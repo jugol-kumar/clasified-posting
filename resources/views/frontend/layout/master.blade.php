@@ -55,7 +55,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/theme.min.css">
     <link rel="stylesheet" href="{{ asset("frontend") }}/assets/css/custom.css">
-    <title>{{ get_setting('name') }} | @yield('title')</title>
+    <title>{{ get_setting('name') ?? 'Classified Posting' }} | @yield('title')</title>
 </head>
 
 <body class="page-bg">
