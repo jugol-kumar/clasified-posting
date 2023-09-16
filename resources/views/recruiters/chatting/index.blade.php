@@ -10,7 +10,7 @@
         .chat-messages {
             display: flex;
             flex-direction: column;
-            height: 800px;
+            height: 500px;
             overflow-y: scroll
         }
         .chat-message-left,
