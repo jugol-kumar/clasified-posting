@@ -99,7 +99,7 @@
                                                 <div class="d-flex flex-column gap-2 flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                                                     <strong class="font-weight-bold mb-1">You</strong>
                                                     <p>{{ $chat?->body }}</p>
-                                                    <small class="text-muted small text-nowrap mt-2">2:33 am</small>
+                                                    <small class="text-muted small text-nowrap mt-2">{{ $chat->created_at->diffForHumans() }}</small>
                                                 </div>
                                             </div>
                                             @else
