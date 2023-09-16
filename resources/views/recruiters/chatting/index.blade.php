@@ -110,7 +110,7 @@
                                             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
                                                 <div class="font-weight-bold mb-1">{{ $chat?->sender?->name }}</div>
                                                 <p>{{ $chat?->body }}</p>
-                                                <small class="text-muted small text-nowrap mt-2">2:34 am</small>
+                                                <small class="text-muted small text-nowrap mt-2">{{ $chat->created_at->diffForHumans() }}</small>
                                             </div>
                                         </div>
                                             @endif
