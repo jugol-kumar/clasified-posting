@@ -49,6 +49,7 @@
             width: 100% !important;
             height: 100% !important;
         }
+
     </style>
 @endpush
 @section('content')
@@ -145,17 +146,19 @@
                                         </div>
                                     </a>
 
-                                    <li class="list-group-item cursor-pointer" onclick="openModal({{ $post?->id }})" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <div class="d-flex gap-3">
-                                            <div class="call-button">
-                                                <i class="fe fe-message-circle"></i>
+                                    @if(Auth::id() != $post?->user?->id)
+                                        <li class="list-group-item cursor-pointer" onclick="openModal({{ $post?->id }})" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <div class="d-flex gap-3">
+                                                <div class="call-button">
+                                                    <i class="fe fe-message-circle"></i>
+                                                </div>
+                                                <div class="d-flex flex-column">
+                                                    <strong>Message To Seller</strong>
+                                                    <small>click for send message</small>
+                                                </div>
                                             </div>
-                                            <div class="d-flex flex-column">
-                                                <strong>Message To Seller</strong>
-                                                <small>click for send message</small>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>

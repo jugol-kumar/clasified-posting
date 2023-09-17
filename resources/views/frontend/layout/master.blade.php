@@ -38,7 +38,7 @@
             position:fixed;
             z-index:10000;
             {{--            background:url({{ asset("frontend/images/load.gif") }}) no-repeat center center;--}}
-{{--            background:url({{ asset("images/loader.svg") }}) no-repeat center center;--}}
+            {{--            background:url({{ asset("images/loader.svg") }}) no-repeat center center;--}}
         }
 
         .cardImage{

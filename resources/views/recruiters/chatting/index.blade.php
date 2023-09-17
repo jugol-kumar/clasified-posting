@@ -4,7 +4,7 @@
         .chat-messages {
             display: flex;
             flex-direction: column;
-            height: 500px;
+            height: 350px;
             overflow-y: scroll
         }
         .chat-message-left,
@@ -13,11 +13,13 @@
             flex-shrink: 0
         }
         .chat-message-left {
-            margin-right: auto
+            margin-right: auto;
+            width:70%;
         }
         .chat-message-right {
             flex-direction: row-reverse;
-            margin-left: auto
+            margin-left: auto;
+            width:70%;
         }
         .py-3 {
             padding-top: 1rem!important;
@@ -36,77 +38,92 @@
         .min-chat-height{
             min-height: 500px;
         }
+        .chat-list-height{
+            height: 500px;
+            overflow-y: scroll;
+        }
+        .borderRight{
+            border-right:1px solid #ecebf1;
+        }
+        .single-item-msg{
+            border-bottom:1px solid #ecebf1 !important;
+            padding: 10px !important;
+        }
+        .chat-messages::-webkit-scrollbar,
+        .chat-list-height::-webkit-scrollbar
+        {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .chat-messages,
+        .chat-list-height{
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 @endpush
 @section('content')
-
     <div class="py-14">
         <div class="container">
             <div class="card">
                 <div class="row g-0">
-                    <div class="col-12 col-lg-5 col-xl-3 border-right">
-                        <div class="px-4 d-none d-md-block">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-grow-1">
-                                    <input type="text" class="form-control my-3" placeholder="Search...">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-12 col-lg-5 col-xl-3 borderRight chat-list-height">
                         @if($messages->count())
                             @foreach($messages as $message)
-                                <a href="{{ route('user.singlePostSingleMessage', $message?->id) }}" class="list-group-item list-group-item-action border-0">
-                                    <div class="d-flex align-items-start">
+                                <a href="{{ route('user.singlePostSingleMessage', $message?->id) }}" class="list-group-item list-group-item-action single-item-msg">
+                                    <div class="d-flex align-items-start gap-3">
                                         <img src="/storage/{{ json_decode($message?->post?->images)[0] }}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
-                                        <div class="flex-grow-1 ml-3">
-                                            {{ $message?->post?->title }}
+                                        <div class="flex-grow-1 ml-3 d-flex flex-column">
+                                            <strong>{{ $message?->post?->title }}</strong>
+                                            <small>{{ Str::limit($message->post->short_details, 30) }}...</small>
                                         </div>
                                     </div>
                                 </a>
                             @endforeach
                         @endif
 
-
                         <hr class="d-block d-lg-none mt-1 mb-0">
                     </div>
-                    <div class="col-12 col-lg-7 col-xl-9">
-                        <div class="min-chat-height">
+                    <div class="col-12 col-lg-7 col-xl-9 min-chat-height">
+                        <div class="">
                             @if(isset($mDetails))
                                 <div class="py-2 px-4 border-bottom d-none d-lg-block">
-                                    <div class="d-flex align-items-center py-1">
-                                        <div class="position-relative">
-                                            <img src="/storage/{{ json_decode($mDetails?->post?->images)[0] }}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                                    <a href="/single-post/{{ $mDetails?->post?->id }}" target="_blank" class="list-group-item list-group-item-action single-item-msg border-0">
+                                        <div class="d-flex align-items-start gap-3">
+                                            <img src="/storage/{{ json_decode($mDetails?->post?->images)[0] }}" class="rounded-circle mr-1" alt="Vanessa Tucker" width="40" height="40">
+                                            <div class="flex-grow-1 ml-3 d-flex flex-column">
+                                                <strong>{{ $mDetails?->post?->title }}</strong>
+                                                <small>{{ Str::limit($mDetails->post->short_details, 60) }}...</small>
+                                            </div>
                                         </div>
-                                        <div class="flex-grow-1 pl-3">
-                                            <strong>{{ $mDetails->post?->title }}</strong>
-                                            <div class="text-muted small"><em>{{ $mDetails->post->price }}</em></div>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
                                 <div class="position-relative">
                                     <div class="chat-messages p-4">
                                         @foreach($mDetails->messages as $chat )
                                             @if($chat->from_id == Auth::id())
                                                 <div class="chat-message-right pb-4">
-                                                <div>
-                                                    <img src="{{ Auth::user()->photo }}" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                                    <div>
+                                                        <img src="{{ Auth::user()->photo }}" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
+                                                    </div>
+                                                    <div class="d-flex flex-column gap-2 flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+                                                        <strong class="font-weight-bold mb-1">You</strong>
+                                                        <p>{{ $chat?->body }}</p>
+                                                        <small class="text-muted small text-nowrap mt-2">{{ $chat->created_at->diffForHumans() }}</small>
+                                                    </div>
                                                 </div>
-                                                <div class="d-flex flex-column gap-2 flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                                                    <strong class="font-weight-bold mb-1">You</strong>
-                                                    <p>{{ $chat?->body }}</p>
-                                                    <small class="text-muted small text-nowrap mt-2">{{ $chat->created_at->diffForHumans() }}</small>
-                                                </div>
-                                            </div>
                                             @else
-                                            <div class="chat-message-left pb-4">
-                                            <div>
-                                                <img src="{{ $chat?->sender?->photo }}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-                                            </div>
-                                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-                                                <div class="font-weight-bold mb-1">{{ $chat?->sender?->name }}</div>
-                                                <p>{{ $chat?->body }}</p>
-                                                <small class="text-muted small text-nowrap mt-2">{{ $chat->created_at->diffForHumans() }}</small>
-                                            </div>
-                                        </div>
+                                                <div class="chat-message-left pb-4">
+                                                    <div>
+                                                        <img src="{{ $chat?->sender?->photo }}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
+                                                    </div>
+                                                    <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
+                                                        <strong class="font-weight-bold mb-1">{{ $chat?->sender?->name }}</strong>
+                                                        <p>{{ $chat?->body }}</p>
+                                                        <small class="text-muted small text-nowrap mt-2">{{ $chat->created_at->diffForHumans() }}</small>
+                                                    </div>
+                                                </div>
                                             @endif
                                         @endforeach
                                     </div>
