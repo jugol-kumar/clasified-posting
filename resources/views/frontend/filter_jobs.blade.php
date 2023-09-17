@@ -171,7 +171,7 @@
                                                        {{ request()->input('cat_id') != null && request()->input('cat_id') == $cat->id ? 'checked' : '' }}
                                                        id="categoryLabel-{{ $cat->id }}">
                                                 <label class="form-check-label" for="categoryLabel-{{ $cat->id }}">
-                                                    {{ $cat->name }} <span class="text-muted">({{ $cat->jobs_count }})</span>
+                                                    {{ $cat->name }}
                                                 </label>
                                             </div>
                                         @endforeach
@@ -196,7 +196,7 @@
                                                        {{ request()->input('scat_id') != null && request()->input('scat_id') == $sCat->id ? 'checked' : '' }}
                                                        id="subCategoryLabel-{{ $sCat->id }}">
                                                 <label class="form-check-label" for="subCategoryLabel-{{ $sCat->id }}">
-                                                    {{ $sCat->name }} <span class="text-muted">({{ $sCat->jobs_count }})</span>
+                                                    {{ $sCat->name }}
                                                 </label>
                                             </div>
                                         @endforeach
@@ -224,7 +224,7 @@
                                                        {{ request()->input('div_id') != null && request()->input('div_id') == $div->id ? 'checked' : '' }}
                                                        id="divisionLavel-{{ $div->id }}">
                                                 <label class="form-check-label" for="divisionLavel-{{ $div->id }}">
-                                                    {{ $div->name }} <span class="text-muted">({{ $div->jobs_count }})</span>
+                                                    {{ $div->name }}
                                                 </label>
                                             </div>
                                         @endforeach

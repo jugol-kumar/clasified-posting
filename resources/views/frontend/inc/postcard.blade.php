@@ -6,7 +6,7 @@
             <div>
                 <h5 class="card-title m-0 text-capitalize">{{ $post->title }}</h5>
                 <h4 class="mt-1">Tk {{ $post->price }}</h4>
-                <p class="card-text text-muted">{{ isset($noLimit) ? $post->short_details : Str::limit($post->short_details, 120) }}</p>
+                <p class="card-text text-muted">{{ Str::limit($post->short_details, 50) }}</p>
                 <small class="text-muted">Post By: {{ $post->user->name  }}, {{ $post->updated_at->diffForHumans() }}</small>
             </div>
         </div>

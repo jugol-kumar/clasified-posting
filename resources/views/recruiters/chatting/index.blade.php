@@ -95,6 +95,7 @@
                                             <div class="flex-grow-1 ml-3 d-flex flex-column">
                                                 <strong>{{ $mDetails?->post?->title }}</strong>
                                                 <small>{{ Str::limit($mDetails->post->short_details, 60) }}...</small>
+                                                <strong>Tk {{ $mDetails?->post?->price }}</strong>
                                             </div>
                                         </div>
                                     </a>
